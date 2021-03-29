@@ -34,6 +34,12 @@ func SendSignal(sig os.Signal) {
 	getInstance().SigEventChannel <- sig
 }
 
+func Close() {
+	i := getInstance()
+	i.SigResult = nil
+	close(i.SigEventChannel)
+}
+
 // Wait: wait signal every 1 second
 func Wait(argc ...os.Signal) {
 	getInstance().SigEventChannel = make(chan os.Signal, 1)
